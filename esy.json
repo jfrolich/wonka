@@ -1,20 +1,31 @@
 {
   "name": "wonka",
-  "version": "4.0.3",
-  "esy": {
-    "build": "dune build -p #{self.name}"
-  },
-  "peerDependencies": {
-    "ocaml": ">= 4.6.0"
-  },
   "dependencies": {
-    "@opam/dune": "^1.7.3",
-    "@esy-ocaml/reason": ">= 3.4.0 < 3.6.0",
-    "refmterr": "*",
-    "belt": "jaredly/belt"
+    "ocaml": "4.14.0",
+    "@opam/dune": ">= 3.1.0",
+    "melange": "melange-re/melange"
   },
   "devDependencies": {
-    "@opam/merlin": "*",
-    "ocaml": "4.8.1000"
+    "@opam/ocaml-lsp-server": "*"
+  },
+  "resolutions": {
+    "@opam/omd": "EduardoRFS/omd:omd.opam#7b866aacbc119e2be54b2dfcd198b860d3c497b1",
+    "@opam/reason": "reasonml/reason:reason.opam#a93c4c3fbf36d32360a64f9b7a3f64b0ef35b903"
+  },
+  "esy": {
+    "buildsInSource": "unsafe",
+    "build": [
+      "rm -rf node_modules/melange",
+      "ln -sfn #{melange.install} node_modules/melange",
+      "mel build"
+    ],
+    "buildDev": [
+      "rm -rf node_modules/melange",
+      "ln -sfn #{melange.install} node_modules/melange",
+      "mel build -w"
+    ]
+  },
+  "installConfig": {
+    "pnp": false
   }
 }
